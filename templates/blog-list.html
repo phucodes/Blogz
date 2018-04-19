@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="main-wrapper">
+    <h1>Build-a-Blog</h1>
 
-<h1>Build-a-Blog</h1>
+    {% if posts|length == 0 %}
+        <h2 class="empty">Your first post awaits!</h2>
 
-{% if posts|length == 0 %}
-    <p>Your first post awaits!</p>
-
-{% else %}
-    {% for post in posts %}
-        <div class="blog-post">
-            <p>{{post.body}}</p>
-            <h1><a href="/blog?id={{post.id}}">{{post.title}}</a></h1>
+    {% else %}
+        <div class="blog-wrapper">
+            <h1>Blogs</h1>
+        {% for post in posts %}
+            <div class="blog-post">
+                <h1><a class="head-link" href="/blog?id={{post.id}}">{{post.title}}</a></h1>
+                <p>{{post.body}}</p>
+            </div>
+        {% endfor %}
         </div>
-    {% endfor %}
-{% endif %}
-
+    {% endif %}
+</div>
 {% endblock %}

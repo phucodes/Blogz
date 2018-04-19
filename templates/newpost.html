@@ -2,16 +2,22 @@
 
 {% block content %}
 
-<div>
+<div class='form'>
     <h1>Add a new entry to your blog</h1>
     <form action="/newpost" method="post">
-        <label for="title">Title:</label>
-        <input name="title" type="text" value={{title}} >
-        <span class="error">{{title_error}}</span>
-        <label for="text">Body</label>
-        <textarea name="text">{{text}}</textarea>
-        <span class="error">{{text_error}}</span>
-        <input type="submit" value="Submit">
+        <div class="title-form">
+            <label for="title">Title</label>
+            <span class="error">{{title_error}}</span>
+            <input name="title" type="text" value={{title}} >
+        </div>
+
+        <div class="text-form">
+            <label for="text">Body</label>
+            <span class="error">{{text_error}}</span>
+            <textarea name="text">{{text}}</textarea>
+        </div>
+
+        <input class="submit" type="submit" value="Submit">
     </form>
 </div>
 

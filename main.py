@@ -37,7 +37,8 @@ class User(db.Model):
 
 @app.route('/')
 def index():
-    return redirect('/blog')
+    owners = User.query.all()
+    return render_template('/index.html', owners=owners)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -69,6 +70,8 @@ def signup():
     else:
         return render_template('signup.html')
 
+#TODO: FIX LOGOUT
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -81,16 +84,16 @@ def login():
             user = users.first()
             if password == user.password:
                 session['user'] = user.username
-                return redirect ("/index")
+                return redirect ("/")
         flash('bad username or password')
         return redirect("/login")
 
 @app.route("/logout", methods=['POST'])
 def logout():
     del session['user']
-    return redirect("/index")
+    return redirect("/")
 
-endpoints_without_login = ['login', 'signup', 'index', 'blog']
+endpoints_without_login = ['login', 'signup', 'index', 'blog', 'logout']
 
 @app.before_request
 def require_login():
@@ -105,13 +108,16 @@ def blog():
         if 'id' in request.args:
             blog_id =  request.args.get('id')
             blog = Blog.query.get(blog_id)
-            return render_template('posts.html', title=blog.title, body=blog.body)
-
+            user = Blog.query.get(blog.owner_id)
+            return render_template('posts.html', title=blog.title, body=blog.body, user=user)
+            
     posts = Blog.query.all()
     return render_template('blog-list.html', posts=posts)
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
+    owner = User.query.filter_by(username=session['user']).first()
+
     if request.method == 'POST':
         title_error = ''
         text_error = ''

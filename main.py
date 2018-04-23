@@ -39,6 +39,66 @@ class User(db.Model):
 def index():
     return redirect('/blog')
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        verify = request.form['verify']
+        username_db_count = User.query.filter_by(username=username).count()
+        if username_db_count > 0:
+            flash('Username is already taken')
+            return redirect('/signup')
+        if username == '':
+            flash('Username must not be empty')
+            return redirect('/signup')
+        if len(username) < 3:
+            flash('Username must be longer than 3 characters')
+            return redirect('/signup')
+        if password != verify:
+            flash('Password did not match')
+            return redirect('/signup')
+        if len(password) < 3:
+            flash('Password must be longer than 3 characters')
+            return redirect('/signup')
+        user = User(username=username, password=password)
+        db.session.add(user)
+        db.session.commit()
+        session['user'] = user.username
+        return redirect("/blog")
+    else:
+        return render_template('signup.html')
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        users = User.query.filter_by(username=username)
+        if users.count() == 1:
+            user = users.first()
+            if password == user.password:
+                session['user'] = user.username
+                return redirect ("/index")
+        flash('bad username or password')
+        return redirect("/login")
+
+@app.route("/logout", methods=['POST'])
+def logout():
+    del session['user']
+    return redirect("/index")
+
+endpoints_without_login = ['login', 'signup', 'index', 'blog']
+
+@app.before_request
+def require_login():
+    if not ('user' in session or request.endpoint in endpoints_without_login):
+        return redirect("/login")
+
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RU'
+
 @app.route('/blog', methods=['POST','GET'])
 def blog():
     if request.method == 'GET':
@@ -66,7 +126,7 @@ def newpost():
         if title_error != '' or text_error != '':
             return render_template('/newpost.html', title_error=title_error, text_error=text_error)
 
-        new_blog = Blog(blog_title, blog_text)
+        new_blog = Blog(blog_title, blog_text, owner)
         db.session.add(new_blog)
         db.session.commit()
         blog = Blog.query.filter_by(title=blog_title).first()

@@ -8,9 +8,21 @@
 
     <body>
 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+        {% endwith %}
+
         <nav class="navigation">
             <a class="nav" href="/blog">Main Blog Page</a>
             <a class="nav" href="/newpost">Add an Entry</a>
+            <a class="nav" href="/signup">Sign Up</a>
+            <a class="nav" href="/login">Log In</a>
         </nav>
 
         {% block content %}

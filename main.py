@@ -65,7 +65,7 @@ def signup():
         user = User(username=username, password=password)
         db.session.add(user)
         db.session.commit()
-        session['user'] = user.username
+        session['username'] = username
         return redirect("/blog")
     else:
         return render_template('signup.html')
@@ -79,25 +79,23 @@ def login():
     elif request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        users = User.query.filter_by(username=username)
-        if users.count() == 1:
-            user = users.first()
-            if password == user.password:
-                session['user'] = user.username
-                return redirect ("/")
+        user = User.query.filter_by(username=username).first()
+        if user.password == password:
+            session['username'] = username
+            return redirect ("/")
         flash('bad username or password')
         return redirect("/login")
 
 @app.route("/logout", methods=['POST'])
 def logout():
-    del session['user']
-    return redirect("/")
+    del session['username']
+    return redirect("/index")
 
 endpoints_without_login = ['login', 'signup', 'index', 'blog', 'logout']
 
 @app.before_request
 def require_login():
-    if not ('user' in session or request.endpoint in endpoints_without_login):
+    if not ('username' in session or request.endpoint in endpoints_without_login):
         return redirect("/login")
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RU'
@@ -109,14 +107,14 @@ def blog():
             blog_id =  request.args.get('id')
             blog = Blog.query.get(blog_id)
             user = Blog.query.get(blog.owner_id)
-            return render_template('posts.html', title=blog.title, body=blog.body, user=user)
+            return render_template('posts.html', title=blog.title, body=blog.body)
             
     posts = Blog.query.all()
     return render_template('blog-list.html', posts=posts)
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
-    owner = User.query.filter_by(username=session['user']).first()
+    owner = User.query.filter_by(username=session['username']).first()
 
     if request.method == 'POST':
         title_error = ''

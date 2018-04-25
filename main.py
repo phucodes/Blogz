@@ -86,7 +86,7 @@ def login():
         flash('bad username or password')
         return redirect("/login")
 
-@app.route("/logout", methods=['POST'])
+@app.route("/logout", methods=['GET'])
 def logout():
     del session['username']
     return redirect("/index")
@@ -103,8 +103,8 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RU'
 @app.route('/blog', methods=['POST','GET'])
 def blog():
     if request.method == 'GET':
-        if 'id' in request.args:
-            blog_id =  request.args.get('id')
+        if 'owner' in request.args:
+            blog_id =  request.args.get('owner')
             blog = Blog.query.get(blog_id)
             user = Blog.query.get(blog.owner_id)
             return render_template('posts.html', title=blog.title, body=blog.body)

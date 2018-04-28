@@ -1,11 +1,20 @@
 {% extends "base.html" %}
+
 {% block content %}
-<div class="login">
-  <h2>Login</h2>
-  <form action="/login" method="post">
-    <p><label>Email<input type="text" name="username"/></label></p>
-    <p><label>Password<input type="password" name="password"/></label></p>
-    <p><input type="submit" value="Login"/></p>
-  </form>
-</div>
+  <div class="login">
+    <h2>Login</h2>
+    <form action="/login" method="post">
+      <div class="box">
+          <label>Username:</label>
+          <label>Password:</label>
+      </div>
+  
+      <div class="other-box">
+          <input type="text" name="username"/>
+          <input type="password" name="password"/>
+      </div>
+
+      <input class="submit" type="submit" value="Login"/>
+    </form>
+  </div>
 {% endblock %}

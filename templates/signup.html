@@ -3,10 +3,20 @@
 <div class="sign-up">
   <h2>Register New Account</h2>
   <form action="/signup" method="post">
-    <p><label>Username <input type="text" name="username"/></label></p>
-    <p><label>New Password <input type="password" name="password"/></label></p>
-    <p><label>Verify Password <input type="password" name="verify"/></label></p>
-    <p><input type="submit" value="Register"/></p>
+    <div class="box">
+        <label>Username:</label>
+        <label>Password:</label>
+        <label>Verify Password:</label>
+    </div>
+
+    <div class="other-box">
+        <input type="text" name="username"/>
+        <input type="password" name="password"/>
+        <input type="password" name="verify"/>
+    </div>
+
+    <input class="submit" type="submit" value="Register"/>
+
   </form>
 </div>
 {% endblock %}

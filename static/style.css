@@ -1,0 +1,166 @@
+/* body {
+    padding: 0;
+    margin: 0;
+    font-family: Futura PT;
+    color: #696969;
+}
+
+.error {
+    color: #d53838;
+    width: 100%;
+}
+
+.navigation {
+    width: 45%;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.navigation a {
+    padding: 20px;
+    text-align: center;
+    width: calc(50% - 40px);
+    box-sizing: border-box;
+    text-transform: uppercase;
+    margin: 0 20px;
+    color: #696969;
+    position: relative;
+}
+
+.nav::before {
+    content: "";
+    position: absolute;
+    left: 35%;
+    bottom: 0;
+    height: 2px;
+    width: 30%;
+    border-bottom: 2px solid #d53838;
+    margin: 0 auto;
+}
+
+.main-wrapper {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.main-wrapper h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+}
+
+.empty {
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.blog-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.blog-post {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    padding-bottom: 40px;
+
+    position: relative;
+    z-index: 1;
+}
+
+.blog-post::before {
+    content: "";
+    position: absolute;
+    left: 30%;
+    bottom: 0;
+    height: 2px;
+    width: 35%;
+    border-bottom: 2px solid #d53838;    
+    margin: 0 auto;
+}
+
+blog-post h1 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #696969;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #696969;
+}
+
+.form {
+
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.form form {
+    width: 100%;
+}
+
+.text-form,
+.title-form {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.text-form label,
+.title-form label {
+    width: 100%;
+}
+
+.text-form textarea,
+.title-form input {
+    width: 50%;
+    margin: 20px auto;
+    padding: 5px 10px;
+    border: 1px solid #424242;
+    border-radius: 100px;
+}
+
+.text-form textarea {
+    width: 100%;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.form h1 {
+    width: 100%;
+}
+
+.submit {
+    padding: 5px 20px;
+    border-radius: 100px;
+    color: #696969;
+    background-color: aliceblue;
+    border: 1px solid #424242;
+    transition-duration: 0.4s;
+    font-size: 0.9em;
+}
+
+.submit:hover {
+    background-color: #424242;
+    color: #ffffff;
+}
+
+*/

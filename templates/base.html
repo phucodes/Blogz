@@ -7,14 +7,17 @@
     </head>
 
     <body>
-
+        <div id="wrapper">
+            <h1 class="main-header">Blogs</h1>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
+            <div class="flash-error">
               <ul class=flashes>
                 {% for message in messages %}
                 <li>{{ message }}</li>
                 {% endfor %}
               </ul>
+            </div>
             {% endif %}
         {% endwith %}
 
@@ -26,7 +29,7 @@
             <a class="nav" href="/login">Log In</a>
             <a class="nav" href="/logout">Log Out</a>
         </nav>
-
+        </div>  
         {% block content %}
         {% endblock %}
     </body>
